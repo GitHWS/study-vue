@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <section id="assignment">
+      <!-- 1) 이름 출력 -->
+      <h2>{{ me.name }}</h2>
+      <!-- 2) 나이 출력 -->
+      <p>{{ me.age }}</p>
+      <!-- 3) 5년 후의 나이 출력 -->
+      <p>5년 후는 {{ after5years() }}</p>
+      <!-- 4) 0 ~ 1의 무작위 수 출력 -->
+      <p>{{ Math.random() }}</p>
+      <div>
+        <!-- 5) 이미지 주소를 Vue 앱 인스턴스 안에서 설정 후 이미지 출력 -->
+        <img v-bind:src="imgUrl" />
+      </div>
+      <!-- 6) input의 내부 초기값을 value 속성으로 출력 -->
+      <input type="text" v-bind:value="inputValue" />
+      <!-- 7) v-html 디렉티브 사용 -->
+      <div v-html="someHtml"></div>
+    </section>
+  </body>
+</html>
