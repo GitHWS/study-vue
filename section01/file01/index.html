@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A First App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label for="goal">Goal</label>
+        <!-- 특정 태그에 엑세스를 하기 위한 v-model 속성의 사용 -->
+        <input type="text" id="goal" v-model="enteredValue" />
+        <!-- 특정 태그에 이벤트를 추가하기 위한 v-on:{event} 속성의 사용 -->
+        <button v-on:click="addGoal">Add Goal</button>
+      </div>
+      <ul>
+        <!-- 해당 태그의 반복적인 사용을 위한 v-for 속성의 사용 -->
+        <li v-for="goal in goals">{{goal}}</li>
+      </ul>
+    </div>
+    <!-- JavaScript 기반의 목표 추가 앱 -->
+    <!-- <script src="app_js.js"></script> -->
+    <!-- Vue.js 기반의 목표 추가 앱 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app_vue.js"></script>
+  </body>
+</html>
