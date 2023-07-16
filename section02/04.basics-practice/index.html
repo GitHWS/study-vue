@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Styling</h1>
+    </header>
+    <section id="assignment">
+      <!-- 👻 My Solution -->
+      <!-- 1) 사용자 입력 값을 가져와 클래스 동적 추가하기 -->
+      <!-- 아래의 p 태그에 input의 입력값을 클래스로 추가하세요. (사용 가능한 클래스명: "user1", "user2") -->
+      <input type="text" v-model="inputValue" />
+      <p :class="[inputValue, setParaVisibility]">Style me!</p>
+
+      <!-- 2) "visible"와 "hidden" 클래스를 사용하여 위의 p태그를 표시하거나 숨기기 -->
+      <!-- 아래의 버튼을 클릭하면 위의 p태그의 클래스가 'visible'과 'hidden'이 토글이 되어야합니다. -->
+      <button @click="toggleParaVisible">Toggle Paragraph</button>
+
+      <!-- 3) 아래의 p 태그에 동적 인라인 스타일링을 추가하고 사용자가 배경색을 입력하도록 하기 -->
+      <input type="text" v-model="InputBackgroundColor" />
+      <p :style="{ backgroundColor: InputBackgroundColor }">Style me inline!</p>
+
+      <!-- 🔥 Solution -->
+      <!-- 
+      <input type="text" v-model="inputClass" />
+      <p :class="paraClasses">Style me!</p>
+      <button @click="toggleParagraphVisibility">Toggle Paragraph</button>
+
+      <input type="text" v-model="inputBackgroundColor" />
+      <p :style="{ backgroundColor : inputBackgroundColor }">
+        Style me inline!
+      </p> -->
+    </section>
+  </body>
+</html>
