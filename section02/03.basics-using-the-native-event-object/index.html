@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <!-- v-on:을 @로 Vue가 제공하는 축약어로 사용할 수 있다.  -->
+      <button @click="add( 10)">Add 10</button>
+      <button @click="reduce(5)">Subtract 5</button>
+      <p>Result: {{ counter }}</p>
+      <!-- v-bind:의 축약어로 :{attributeName}으로 작성할 수 있다. -->
+      <!-- <input
+        type="text"
+        :value="name"
+        v-on:input="setName($event, 'Schwarzmüller')" /> -->
+      <!-- v-model = v-bind:value v-on:input의 축약어 = 데이터 양방향 바인딩 -->
+      <!-- input에서 나오는 이벤트(input 이벤트)를 수신함과 동시에 value 속성 및 value 프로퍼티를 통해 값을 입력 요소에 다시 전달한다. -->
+      <!-- 코드가 간결해지며 사용자 입력의 수신과 업데이트를 아주 쉽게 할 수 있도록 해준다. -->
+      <input type="text" v-model="name" />
+      <input type="text" v-model="lastName" />
+      <button @click="resetInput">Reset Input</button>
+      <p>Your Name: {{ fullname }}</p>
+    </section>
+  </body>
+</html>
