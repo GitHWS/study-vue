@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Reactivity in Action</h1>
+    </header>
+    <section id="assignment">
+      <button @click="addNumber(5)">Add 5</button>
+      <button @click="addNumber(1)">Add 1</button>
+      <p>Counter : {{ counter }}</p>
+      <!-- 1) 값을 연산하기 위해 button과 이벤트를 연결하기 -->
+      <!-- 37에 정확히 도달할 때까지 "Not there yet"을 result로 출력하기 -->
+      <!-- 37보다 크다면 "Too much!"을 result로 출력하기-->
+      <p>Result: {{ result }}</p>
+      <!-- 2) result의 변화가 감지되면 값을 5초 후에 0으로 재설정하기 -->
+    </section>
+  </body>
+</html>
