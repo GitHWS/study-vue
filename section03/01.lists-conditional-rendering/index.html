@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enteredGoalValue" />
+      <button @click="addGoal">Add Goal</button>
+      <!-- ✅ v-if, v-else-if, v-else 디렉티브를 사용한 조건부 렌더링 -->
+      <!-- v-if 리렉티브는 일반 JavaScript if문과 동일하게 설정된 값이 truthy일 때만 렌더링을 한다.-->
+      <!-- false 시 개발자 도구에서 보면 해당 자리에 v-if라는 주석이 표시된다. -->
+      <!-- 값이 falsy거나 이외의 조건을 추가하려고 할 때, v-else나 v-else-if를 사용할 수도 있다.   -->
+      <!-- 단, v-else-if나 v-else 디렉티브를 사용할 때는 반드시 v-if 디렉티브를 사용한 HTML 태그의 바로 다음(아래), 즉 직접적인 이웃하는 엘리먼트여야 정상적인 동작이 가능하다. 중간에 다른 엘리먼트가 있다면 동작하지 않는다. -->
+      <!-- 또한 v-if, v-else-if, v-else는 적용된 요소를 실제로 DOM에서 제거하거나 추가한다. 즉, DOM의 일부가 되는 엘리먼트가 무엇인지 결정한다.-->
+      <!-- DOM에 당장 필요하지 않는 엘리먼트가 있다면 v-show보다 v-if를 사용하는 것을 권장한다. -->
+      <!-- <p v-if="goals.length === 0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul v-else>
+        <li>Goal</li>
+      </ul> -->
+
+      <!-- ✅ v-if의 대안, v-show 디렉티브를 사용한 조건부 렌더링 -->
+      <!-- v-if에는 전혀 문제가 없지만 v-show를 사용해도 위의 동작과 동일하게 구현이 가능하다. -->
+      <!-- v-if와 다르게 v-else-if, v-else와 같은 연관된 디렉티브가 없이 독립적으로 실행되므로 여러 조건이 필요하다면 v-show를 여러번 사용해야한다. -->
+      <!-- v-if와 또 다른 차이점은 v-show가 적용된 엘리먼트는 항상 렌더링되어 DOM에 남아있다. 즉, 그저 엘리먼트를 숨길 뿐이지 무조건 렌더링을 한다. 왜냐하면 v-show는 display CSS 속성을 지정된 boolean에 따라 설정하기 때문이다. -->
+      <!-- v-if보다 v-show를 권장하는 이유는 v-show는 CSS 속성을 통해 엘리먼트의 가시성을 결정하기 때문에 DOM에서 실제로 엘리먼트를 제거하고 추가하는 v-if보다 성능적인 이점이 있기 때문이다. -->
+      <!-- 즉, 필요한 엘리먼트지만 가시성 상태가 자주 변경되는 엘리먼트라면 v-show 디렉티브 사용을 고려해보는 것이 좋다. 예를 들어, 토글 효과나 콘텐츠 상태가 표시와 숨김 사이에서 자주 바뀌는 상황이라면 사용하는 것이 좋다. -->
+      <!-- <p v-show="goals.length === 0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul v-show="goals.length > 0">
+        <li>Goal</li>
+      </ul> -->
+
+      <!-- ✅ v-for 디렉티브를 통한 리스트(배열) 렌더링 -->
+      <!-- v-for는 for문처럼 반복되는 코드를 처리하는 디렉티브이다. -->
+      <!-- v-for 디렉티브를 통해 리스트를 렌더링하고 리스트의 값 업데이트 시 변함이 없는 기존의 요소는 리렌더링이 발생하지 않고 새로 생성된 요소만 렌더링이 되어 즉시 업데이트를 할 수 있다. -->
+      <!-- 반복적으로 배열의 요소를 처리하려면 [item in items] 형태의 값을 설정하여 배열의 루프 동작을 실행해야한다. item은 임의의 이름으로 수정이 가능하다. -->
+      <!-- item in items라면 v-for는 items의 모든 값을 확인하여 items 배열 내 각각의 요소의 수만큼 item을 하나씩 반복하여 렌더링한다. -->
+      <!-- 각 item의 값을 HTML 코드에 사용하려면 item을 보간법(이중 중괄호) 안에 사용하여 출력이 가능하다. -->
+      <!-- 해당 반복 렌더링은 적용된 HTML 태그에 한해서만 동작하며 다른 HTML 태그에서는 동작하지 않는다. -->
+      <!-- [(item, index) in items]와 같이 반복되는 요소에 대한 index도 출력할 수 있다. -->
+      <p v-if="goals.length === 0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <!-- <ul v-else> -->
+      <!-- v-for에서 루프로 사용되는 각 요소를 가리키는 item과 index는 v-for가 적용된 태그와 해당 태그 내 자식 요소에서도 사용 가능하다.-->
+      <!-- v-for를 통해 배열을 출력하기 때문에 Vue의 핵심 기능인 반응형 동작에 따라 리스트 배열에 변화가 생기면 자동으로 리스트가 업데이트된다. -->
+      <!-- <li v-for="(goal, index) in goals" @click="removeGoal(index)">
+          {{ index }}. {{ goal }}
+        </li> -->
+      <!-- </ul> -->
+      <!-- ✅ v-for 디렉티브를 통한 리스트(객체) 렌더링 -->
+      <!-- v-for의 값을 각 아이템에 대한 설정을 변경하면 객체에 대한 key, value, index를 출력할 수 있다. -->
+      <!-- <ul>
+        <li v-for="(value, key, index) in {name: 'Shin', age: 31}">
+          {{index}}. {{ key }} : {{ value }}
+        </li>
+      </ul> -->
+      <!-- ✅ v-for 디렉티브를 통한 리스트(숫자) 렌더링 -->
+      <!-- 숫자를 설정해서 숫자까지 반복 횟수를 지정할 수도 있다. -->
+      <!-- <ul>
+        <li v-for="num in 10">{{ num }}</li>
+      </ul> -->
+
+      <!-- ⚠️ 아래와 같이 li에 설정된 이벤트는 내부 자식 엘리먼트(p, input)에도 전파가 되므로 클릭 시 클릭 이벤트가 호출된다. -->
+      <!-- 이런 자식 엘리먼트로 이벤트 전파를 막기 위해 v-on의 옵션 .stop을 사용하면 event.stopPropagation()을 호출하여 자식 엘리먼트의 전파를 막을 수 있다. -->
+
+      <!-- ⚠️ 또 다른 발생할 수 있는 버그 -->
+      <!-- 첫번째 li 내 자식 엘리먼트 input에 텍스트를 작성하고 해당 li 태그를 제거하면 두번째 li가 첫번째 li가 되면서 삭제된 텍스트가 삭제되지 않고 input의 value가 되어있는 것을 볼 수 있다. -->
+      <!-- 반대로 두번째 li 내 자식 엘리먼트 input에 텍스트를 작성하고 해당 li 태그를 제거하면 정상적으로 input에 입력한 텍스트를 두번째 li와 삭제되어 첫번째 input의 값으로 비어있음을 볼 수 있다. -->
+      <!-- 이는 item을 추가 및 삭제 시 Vue가 목록을 업데이트하는데 실제 DOM에 목록을 렌더링하고 필요한 업데이트를 수행하는 방식이다. -->
+      <!-- Vue는 이때 성능의 최적화하는 방법으로 이를 수행하는데 다시 말하면 DOM 요소를 재사용한다는 의미이다. -->
+      <!-- 두 개의 goal 중 첫번째 item을 제거했을 때 Vue가 전체 리스트를 다시 렌더링하지 않는다. 그리고 첫번째 item 엘리먼트를 삭제하고 나서 두번째 item 엘리먼트로 넘어가지 않는다.-->
+      <!-- 하지만 두번째 item 엘리먼트의 요소를 그대로 가지고 첫번째 item의 DOM에 옮겨진다. 즉 코드의 이중 중괄호 속 부분만 이전의 첫 번째 DOM 요소로 옮겨간다. -->
+      <!-- 이는 Vue가 요소를 재사용하여 발생하는 문제인데 대부분의 경우 문제가 없다. 하지만 가끔 같은 엘리먼트 간의 구분이 필요한데 모두 동일한 엘리먼트(모두 li)를 가지는 경우 렌더링된 모든 DOM 엘리먼트에 대한 고유한 식별 기준이 없다. -->
+      <!-- 출력되는 모든 item에 대해 고유한 식별 기준을 위해 Vue가 인식 및 감지를 할 수 있는 key 속성을 사용할 수 있다. -->
+      <!-- 일반적으로 v-for에서 사용할 수 있는 index를 key 값으로 사용할 수 있지만 권장하지 않는다. 현실적으로는 데이터베이스 내의 고유한 id의 값을 사용하는 것이 이상적이다.  -->
+      <!-- key를 설정함으로써 Vue가 동일한 DOM 엘리먼트의 차이를 식별할 수 있고 input 값 등의 상태가 유실되는 것을 방지할 수 있다. 또한 성능 최적화에도 도움을 줄 수 있다. -->
+      <ul v-else>
+        <li
+          v-for="(goal, index) in goals"
+          :key="goal"
+          @click="removeGoal(index)">
+          <p>{{ index }}. {{ goal }}</p>
+          <input type="text" @click.stop />
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>
