@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  props: ['id'],
   data() {
     return { email: '', message: '', formIsValid: true };
   },
@@ -34,6 +35,12 @@ export default {
         this.formIsValid = false;
         return;
       }
+      this.$store.dispatch('requests/contactCoach', {
+        coachId: this.$route.params.id,
+        userEmail: this.email,
+        message: this.message,
+      });
+      this.$router.replace('/coaches');
     },
   },
 };
