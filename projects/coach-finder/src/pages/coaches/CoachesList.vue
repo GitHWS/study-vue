@@ -10,7 +10,9 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+        <base-button mode="outline" @click="loadCoaches(true)"
+          >Refresh</base-button
+        >
         <base-button v-if="!isCoach && !isLoading" link to="/register"
           >Register as Coach</base-button
         >
@@ -86,12 +88,14 @@ export default {
       this.activeFilters = updatedFilters;
     },
     // methods에서도  async/await 비동기 구문을 사용할 수 있다.
-    async loadCoaches() {
+    async loadCoaches(refresh = false) {
       this.isLoading = true;
       // NOTE 데이터 Fetch 에러 처리
       try {
         // NOTE dispatch가 끝나면...
-        await this.$store.dispatch('coaches/loadCoaches');
+        await this.$store.dispatch('coaches/loadCoaches', {
+          forceRefresh: refresh,
+        });
       } catch (error) {
         this.error = error.message || 'Something went Wrong!';
       }
