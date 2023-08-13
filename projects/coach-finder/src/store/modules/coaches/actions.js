@@ -36,6 +36,8 @@ export default {
 
     if (!response.ok) {
       // 에러 발생 시 실행될 로직
+      const error = new Error(responseData.message || 'Failed to fetch!');
+      throw error;
     }
 
     const coaches = [];

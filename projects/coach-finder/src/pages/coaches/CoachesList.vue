@@ -1,4 +1,9 @@
 <template>
+  <base-dialog :show="!!error" title="An Error Occured!" @close="handleError">
+    <p>
+      {{ error }}
+    </p>
+  </base-dialog>
   <section>
     <coach-filter @change-filter="setFilters"></coach-filter>
   </section>
@@ -42,6 +47,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -82,10 +88,18 @@ export default {
     // methods에서도  async/await 비동기 구문을 사용할 수 있다.
     async loadCoaches() {
       this.isLoading = true;
-      // NOTE dispatch가 끝나면...
-      await this.$store.dispatch('coaches/loadCoaches');
+      // NOTE 데이터 Fetch 에러 처리
+      try {
+        // NOTE dispatch가 끝나면...
+        await this.$store.dispatch('coaches/loadCoaches');
+      } catch (error) {
+        this.error = error.message || 'Something went Wrong!';
+      }
       // NOTE isLoading을 false로 업데이트한다.
       this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
